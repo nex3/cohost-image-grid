@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 /** @title Form field appearance variants */
 @Component({
@@ -8,16 +8,28 @@ import {FormBuilder, FormControl, Validators} from '@angular/forms';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  imagesPerRowControl = new FormControl(2, Validators.min(1));
-  urlControl = new FormControl("");
-  captionControl = new FormControl("");
-  altTextControl = new FormControl("");
   form = this._formBuilder.group({
-    imagesPerRow: this.imagesPerRowControl,
-    url: this.urlControl,
-    caption: this.captionControl,
-    altText: this.altTextControl,
+    imagesPerRow: new FormControl(2, Validators.min(1)),
+    images: new FormArray([
+      new FormGroup({
+        url: new FormControl(""),
+        caption: new FormControl(""),
+        altText: new FormControl(""),
+      }),
+    ]),
   });
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder) { }
+
+  addImage() {
+    this.form.controls.images.push(new FormGroup({
+      url: new FormControl(""),
+      caption: new FormControl(""),
+      altText: new FormControl(""),
+    }));
+  }
+
+  removeImage(i: number) {
+    this.form.controls.images.removeAt(i);
+  }
 }

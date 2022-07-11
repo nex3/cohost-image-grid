@@ -2,25 +2,33 @@
   <div>
     <mat-form-field appearance="standard">
       <mat-label>Images per row</mat-label>
-      <input matInput type="number" [formControl]="imagesPerRowControl" min="1">
+      <input matInput type="number" [formControl]="form.controls.imagesPerRow" min="1">
     </mat-form-field>
   </div>
 
-  <mat-card class="image-input">
+  <mat-card class="image-input" *ngFor="let group of form.controls.images.controls; index as i">
     <mat-form-field appearance="fill">
       <mat-label>URL</mat-label>
-      <input matInput [formControl]="urlControl">
+      <input matInput [formControl]="group.controls.url">
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Caption</mat-label>
-      <textarea matInput [formControl]="captionControl"></textarea>
+      <textarea matInput [formControl]="group.controls.caption"></textarea>
     </mat-form-field>
-    
+
     <mat-form-field appearance="fill">
       <mat-label>Alt Text</mat-label>
-      <textarea matInput [formControl]="altTextControl"></textarea>
+      <textarea matInput [formControl]="group.controls.altText"></textarea>
       <mat-hint>For screen readers and people who hover over the images</mat-hint>
     </mat-form-field>
+
+    <mat-card-actions>
+      <button mat-raised-button color="warn" (click)="removeImage(i)">Remove</button>
+    </mat-card-actions>
   </mat-card>
+
+  <div>
+    <button mat-raised-button color="primary" (click)="addImage()">Add Image</button>
+  </div>
 </form>
