@@ -28,8 +28,9 @@
     </mat-card-actions>
   </mat-card>
 
-  <div>
+  <div class="buttons">
     <button mat-raised-button color="primary" (click)="addImage()">Add Image</button>
+    <button mat-raised-button (click)="copyHtml()">Copy HTML</button>
   </div>
 </form>
 
@@ -54,7 +55,7 @@
   </header>
   <hr>
   <div class="contentOuter">
-    <div class="contentInner">
+    <div class="contentInner" #contentInner>
       <div [style]="gridStyle">
         <a *ngFor="let image of validImages" href="{{image.url}}" [style]="imageStyle">
           <img src="{{image.url}}" alt="{{image.altText}}" style="width: 100%">

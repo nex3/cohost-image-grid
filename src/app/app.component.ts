@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 type Image = Partial<{ url: string | null, caption: string | null, altText: string | null }>;
 
@@ -21,7 +22,9 @@ export class AppComponent {
     ]),
   });
 
-  constructor(private _formBuilder: FormBuilder) { }
+  @ViewChild('contentInner') private wrapper!: ElementRef<HTMLElement>;
+
+  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
   get gridStyle() {
     const fontSize = 100 - 15 * this.form.value.imagesPerRow!;
@@ -55,11 +58,11 @@ export class AppComponent {
     return this.form.value.images!.filter(image => image.url);
   }
 
-  captionText(image: Image): string|undefined {
+  captionText(image: Image): string | undefined {
     return image?.caption?.replace('\n', '<br>');
   }
 
-  addImage() {
+  addImage(): void {
     this.form.controls.images.push(new FormGroup({
       url: new FormControl(""),
       caption: new FormControl(""),
@@ -67,7 +70,22 @@ export class AppComponent {
     }));
   }
 
-  removeImage(i: number) {
+  removeImage(i: number): void {
     this.form.controls.images.removeAt(i);
+  }
+
+  async copyHtml(): Promise<void> {
+    const html = this.wrapper.nativeElement.innerHTML
+      // Angular adds a bunch of comments that we don't need.
+      .replace(/<!--(.|\n)*?-->/mg, '')
+      // Magic Angular attributes.
+      .replace(/ _ng[a-z0-9-]+=""/g, '');
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        "text/plain": new Blob([html], { type: "text/plain" }),
+      })
+    ]);
+
+    this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
   }
 }
