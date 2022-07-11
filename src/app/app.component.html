@@ -55,8 +55,13 @@
   <hr>
   <div class="contentOuter">
     <div class="contentInner">
-      Contents
+      <div style="display: flex; flex-wrap: wrap">
+        <a *ngFor="let image of validImages" href="{{image.url}}"
+          style="{{imageStyle}}">
+          <img src="{{image.url}}" alt="{{image.altText}}" style="width: 100%">
+      </a>
     </div>
+  </div>
   </div>
   <hr>
   <footer>

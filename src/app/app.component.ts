@@ -21,6 +21,19 @@ export class AppComponent {
 
   constructor(private _formBuilder: FormBuilder) { }
 
+  get imageStyle() {
+    return `
+      flex-grow: 1;
+      width: calc(100% / ${this.form.value.imagesPerRow} - 4px);
+      margin: 0 2px;
+      display: block;
+    `;
+  }
+
+  get validImages(): Array<Partial<{ url: string | null, caption: string | null, altText: string | null }>> {
+    return this.form.value.images!.filter(image => image.url);
+  }
+
   addImage() {
     this.form.controls.images.push(new FormGroup({
       url: new FormControl(""),
