@@ -7,17 +7,17 @@
   </div>
 
   <mat-card class="image-input" *ngFor="let group of form.controls.images.controls; index as i">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="urlInput">
       <mat-label>URL</mat-label>
       <input matInput [formControl]="group.controls.url">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="captionInput">
       <mat-label>Caption</mat-label>
       <textarea matInput [formControl]="group.controls.caption"></textarea>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" class="altTextInput">
       <mat-label>Alt Text</mat-label>
       <textarea matInput [formControl]="group.controls.altText"></textarea>
       <mat-hint>For screen readers and people who hover over the images</mat-hint>

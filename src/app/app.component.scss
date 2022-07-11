@@ -1,7 +1,16 @@
 .image-input {
     margin-bottom: 1em;
 
-    mat-form-field {
+    .urlInput {
         width: 100%;
+    }
+
+    $gutter: 20px;
+    .captionInput, .altTextInput {
+        width: calc(50% - $gutter / 2);
+    }
+
+    .captionInput {
+        margin-right: $gutter;
     }
 }
