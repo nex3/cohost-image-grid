@@ -86,7 +86,9 @@ export class AppComponent {
       // Angular adds a bunch of comments that we don't need.
       .replace(/<!--(.|\n)*?-->/mg, '')
       // Magic Angular attributes.
-      .replace(/ _ng[a-z0-9-]+=""/g, '');
+      .replace(/ _ng[a-z0-9-]+=""/g, '')
+      // Angular-injected class.
+      .replace(/ class="ng-star-inserted"/g, '');
     await navigator.clipboard.write([
       new ClipboardItem({
         "text/plain": new Blob([html], { type: "text/plain" }),
