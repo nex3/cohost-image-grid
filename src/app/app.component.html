@@ -31,6 +31,7 @@
   <div class="buttons">
     <button mat-raised-button color="primary" (click)="addImage()">Add Image</button>
     <button mat-raised-button (click)="copyHtml()">Copy HTML</button>
+    <mat-slide-toggle [formControl]="form.controls.attribution">Include link to this generator</mat-slide-toggle>
   </div>
 </form>
 
@@ -63,6 +64,11 @@
             style="color: white; position: absolute; bottom: 10%; left: 12%; right: 12%; display: block; text-align: center">
           </span>
         </a>
+      </div>
+      
+      <div *ngIf="form.value.attribution" style="text-align: right; font-size: 70%; opacity: 0.7; line-height: 100%">
+        made with <a style="text-decoration: none; font-weight: bold; color: black" href="https://cohost.org/nex3">@nex3</a>'s
+        <a href="https://nex3.github.io/cohost-image-grid/">grid generator</a>
       </div>
     </div>
   </div>

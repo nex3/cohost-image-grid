@@ -13,6 +13,7 @@ type Image = Partial<{ url: string | null, caption: string | null, altText: stri
 export class AppComponent {
   form = this._formBuilder.group({
     imagesPerRow: new FormControl(2, Validators.min(1)),
+    attribution: new FormControl(false),
     images: new FormArray([
       new FormGroup({
         url: new FormControl(""),
