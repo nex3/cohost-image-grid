@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+type Image = Partial<{ url: string | null, caption: string | null, altText: string | null }>;
+
 /** @title Form field appearance variants */
 @Component({
   selector: 'app-root',
@@ -22,7 +24,7 @@ export class AppComponent {
   constructor(private _formBuilder: FormBuilder) { }
 
   get gridStyle() {
-    const fontSize = 100 - 15 * this.form.value.imagesPerRow!; 
+    const fontSize = 100 - 15 * this.form.value.imagesPerRow!;
     return `
       display: flex;
       flex-wrap: wrap;
@@ -49,8 +51,12 @@ export class AppComponent {
     `;
   }
 
-  get validImages(): Array<Partial<{ url: string | null, caption: string | null, altText: string | null }>> {
+  get validImages(): Array<Image> {
     return this.form.value.images!.filter(image => image.url);
+  }
+
+  captionText(image: Image): string|undefined {
+    return image?.caption?.replace('\n', '<br>');
   }
 
   addImage() {
