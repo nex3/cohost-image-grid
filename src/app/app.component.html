@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+  <div>
+    <mat-form-field appearance="standard">
+      <mat-label>Images per row</mat-label>
+      <input matInput type="number" [formControl]="imagesPerRowControl" min="1">
+    </mat-form-field>
+  </div>
+
+  <mat-card class="image-input">
+    <mat-form-field appearance="fill">
+      <mat-label>URL</mat-label>
+      <input matInput [formControl]="urlControl">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Caption</mat-label>
+      <textarea matInput [formControl]="captionControl"></textarea>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Alt Text</mat-label>
+      <textarea matInput [formControl]="altTextControl"></textarea>
+      <mat-hint>For screen readers and people who hover over the images</mat-hint>
+    </mat-form-field>
+  </mat-card>
+</form>

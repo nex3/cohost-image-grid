@@ -10,9 +10,5 @@ if (environment.production) {
   enableProdMode();
 }
 
-/* eslint-disable no-console */
-console.info('Angular CDK version', CDK_VERSION.full);
-console.info('Angular Material version', MAT_VERSION.full);
-
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
