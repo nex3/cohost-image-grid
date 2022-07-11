@@ -21,12 +21,31 @@ export class AppComponent {
 
   constructor(private _formBuilder: FormBuilder) { }
 
+  get gridStyle() {
+    const fontSize = 100 - 15 * this.form.value.imagesPerRow!; 
+    return `
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      font-size: ${fontSize}%;
+      line-height: 100%;
+      text-shadow:
+        0px 0px 2px black,
+        0px 0px 2px black,
+        0px 0px 2px black,
+        0px 0px 2px black,
+        0px 0px 2px black,
+        0px 0px 2px black;
+    `;
+  }
+
   get imageStyle() {
     return `
-      flex-grow: 1;
       width: calc(100% / ${this.form.value.imagesPerRow} - 4px);
       margin: 0 2px;
       display: block;
+      text-decoration: none;
+      position: relative;
     `;
   }
 
