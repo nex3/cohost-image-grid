@@ -6,11 +6,147 @@
     }
 
     $gutter: 20px;
-    .captionInput, .altTextInput {
+
+    .captionInput,
+    .altTextInput {
         width: calc(50% - $gutter / 2);
     }
 
     .captionInput {
         margin-right: $gutter;
+    }
+}
+
+mat-divider {
+    margin: 1em 0;
+}
+
+// Styles shamelessly stolen from Cohost.
+.preview {
+    box-shadow: 0 4px 5px rgb(25 25 25 / 14%), 0 1px 10px rgb(25 25 25 / 12%), 0 2px 4px rgb(0 0 0 / 20%);
+    max-width: 65ch;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin: 0 auto;
+    font-family: Atkinson Hyperlegible, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
+
+    header {
+        padding: 0.75rem;
+        background-color: rgb(255 249 242);
+        border-top-left-radius: 0.5rem;
+        border-top-right-radius: 0.5rem;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        display: flex;
+
+        >div {
+            gap: 0.5rem;
+            align-items: center;
+            flex-direction: row;
+            width: 100%;
+            display: flex;
+        }
+    }
+
+    .headerInfo {
+        line-height: 1;
+        gap: 0.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: row;
+        flex: 1 1 0%;
+        display: flex;
+    }
+
+    .authorName {
+        color: rgb(25 25 25);
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        flex-shrink: 1;
+        max-width: 100%;
+        display: block;
+    }
+
+    .authorAt {
+        color: rgb(104 102 100);
+        font-weight: 400;
+        display: block;
+    }
+
+    .menu {
+        width: 1.6em;
+        height: 1.6em;
+        position: relative;
+
+        svg {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+
+    hr {
+        box-sizing: border-box;
+        border-width: 0;
+        border-style: solid;
+        height: 0;
+        color: inherit;
+        border-top-width: 1px;
+        margin: 0;
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
+        border-color: rgb(191 186 181);
+    }
+
+    .contentOuter {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contentInner {
+        overflow-wrap: break-word;
+        margin: 1rem 0;
+    }
+
+    footer {
+        max-width: 100%;
+        border-bottom-right-radius: 0.5rem;
+        border-bottom-left-radius: 0.5rem;
+        background-color: rgb(255 249 242);
+        padding: 0.75rem;
+
+        >div {
+            display: flex;
+            justify-content: space-between;
+            vertical-align: middle;
+        }
+    }
+
+    .comments {
+        width: -webkit-max-content;
+        width: -moz-max-content;
+        width: max-content;
+        flex: none;
+        color: rgb(160 156 152);
+        line-height: 1;
+        font-size: .875rem;
+    }
+
+    .footerIcons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.75rem;
+        background-color: rgb(255 249 242);
+        color: rgb(25 25 25)
+    }
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        display: block;
     }
 }
