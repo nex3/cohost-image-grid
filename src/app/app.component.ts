@@ -27,7 +27,14 @@ export class AppComponent {
   constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
   get gridStyle() {
-    const fontSize = 100 - 15 * this.form.value.imagesPerRow!;
+    let fontSize;
+    switch (this.form.value.imagesPerRow) {
+      case 1: fontSize = 140; break;
+      case 2: fontSize = 75; break;
+      case 3: fontSize = 60; break;
+      case 4: fontSize = 42; break;
+      default: fontSize = 30;
+    }
     return `
       display: flex;
       flex-wrap: wrap;
