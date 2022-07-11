@@ -58,7 +58,7 @@
     <div class="contentInner" #contentInner>
       <div [style]="gridStyle">
         <a *ngFor="let image of validImages" href="{{image.url}}" [style]="imageStyle">
-          <img src="{{image.url}}" alt="{{image.altText}}" style="width: 100%">
+          <img src="{{image.url}}" alt="{{image.altText}}" style="width: 100%; margin: 0">
           <span *ngIf="image.caption" [innerHTML]="captionText(image)"
             style="color: white; position: absolute; bottom: 10%; left: 12%; right: 12%; display: block; text-align: center">
           </span>

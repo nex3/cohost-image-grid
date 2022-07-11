@@ -27,19 +27,19 @@ export class AppComponent {
   constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
   get gridStyle() {
-    let fontSize;
+    let fontMultiplier;
     switch (this.form.value.imagesPerRow) {
-      case 1: fontSize = 140; break;
-      case 2: fontSize = 75; break;
-      case 3: fontSize = 60; break;
-      case 4: fontSize = 42; break;
-      default: fontSize = 30;
+      case 1: fontMultiplier = 1; break;
+      case 2: fontMultiplier = 0.54; break;
+      case 3: fontMultiplier = 0.43; break;
+      case 4: fontMultiplier = 0.30; break;
+      default: fontMultiplier = 0.21;
     }
     return `
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
-      font-size: ${fontSize}%;
+      font-size: min(${140 * fontMultiplier}%, ${3.73 * fontMultiplier}vw);
       line-height: 100%;
       text-shadow:
         0px 0px 2px black,
@@ -54,7 +54,7 @@ export class AppComponent {
   get imageStyle() {
     return `
       width: calc(100% / ${this.form.value.imagesPerRow} - 4px);
-      margin: 0 2px;
+      margin: 2px 2px;
       display: block;
       text-decoration: none;
       position: relative;
