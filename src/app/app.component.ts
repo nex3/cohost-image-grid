@@ -13,7 +13,8 @@ type Image = Partial<{ url: string | null, caption: string | null, altText: stri
 export class AppComponent {
   form = this._formBuilder.group({
     imagesPerRow: new FormControl(2, Validators.min(1)),
-    attribution: new FormControl(false),
+    attribution: new FormControl(true),
+    wideImages: new FormControl<'shrink'|'crop'>('crop'),
     images: new FormArray([
       new FormGroup({
         url: new FormControl(""),
@@ -40,6 +41,8 @@ export class AppComponent {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
+      align-items: stretch;
+      object-fit: 
       font-size: min(${140 * fontMultiplier}%, ${3.73 * fontMultiplier}vw);
       line-height: 100%;
       text-shadow:
@@ -52,13 +55,23 @@ export class AppComponent {
     `;
   }
 
-  get imageStyle() {
+  get linkStyle() {
     return `
       width: calc(100% / ${this.form.value.imagesPerRow} - 4px);
       margin: 2px 2px;
       display: block;
       text-decoration: none;
       position: relative;
+      object-fit: 
+    `;
+  }
+
+  get imageStyle() {
+    return `
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      object-fit: ${this.form.value.wideImages === 'crop' ? 'cover' : 'contain'};
     `;
   }
 

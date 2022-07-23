@@ -1,3 +1,15 @@
+.config {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: baseline;
+    margin-bottom: 1em;
+
+    > * {margin: 0 0.5rem}
+
+    mat-radio-button {margin-left: 12px}
+}
+
 .image-input {
     margin-bottom: 1em;
 

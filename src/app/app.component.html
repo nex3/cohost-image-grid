@@ -1,9 +1,17 @@
 <form [formGroup]="form">
-  <div>
+  <div class="config">
     <mat-form-field appearance="standard">
       <mat-label>Images per row</mat-label>
       <input matInput type="number" [formControl]="form.controls.imagesPerRow" min="1">
     </mat-form-field>
+
+    <mat-slide-toggle [formControl]="form.controls.attribution">Include link to this generator</mat-slide-toggle>
+
+    <mat-radio-group [formControl]="form.controls.wideImages">
+      <label>Wide images:</label>
+      <mat-radio-button value="crop">Crop to fit</mat-radio-button>
+      <mat-radio-button value="shrink">Shrink to fit</mat-radio-button>
+    </mat-radio-group>
   </div>
 
   <mat-card class="image-input" *ngFor="let group of form.controls.images.controls; index as i">
@@ -31,7 +39,6 @@
   <div class="buttons">
     <button mat-raised-button color="primary" (click)="addImage()">Add Image</button>
     <button mat-raised-button (click)="copyHtml()">Copy HTML</button>
-    <mat-slide-toggle [formControl]="form.controls.attribution">Include link to this generator</mat-slide-toggle>
   </div>
 </form>
 
@@ -58,8 +65,8 @@
   <div class="contentOuter">
     <div class="contentInner" #contentInner>
       <div [style]="gridStyle">
-        <a *ngFor="let image of validImages" href="{{image.url}}" [style]="imageStyle">
-          <img src="{{image.url}}" alt="{{image.altText}}" style="width: 100%; margin: 0">
+        <a *ngFor="let image of validImages" href="{{image.url}}" [style]="linkStyle">
+          <img src="{{image.url}}" alt="{{image.altText}}" [style]="imageStyle">
           <span *ngIf="image.caption" [innerHTML]="captionText(image)"
             style="color: white; position: absolute; bottom: 10%; left: 12%; right: 12%; display: block; text-align: center">
           </span>
