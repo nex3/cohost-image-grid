@@ -42,7 +42,6 @@ export class AppComponent {
       flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: stretch;
-      object-fit: 
       font-size: min(${140 * fontMultiplier}%, ${3.73 * fontMultiplier}vw);
       line-height: 100%;
       text-shadow:
