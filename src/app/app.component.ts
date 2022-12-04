@@ -14,6 +14,7 @@ export class AppComponent {
   form = this._formBuilder.group({
     imagesPerRow: new FormControl(2, Validators.min(1)),
     attribution: new FormControl(true),
+    fontSize: new FormControl(3, [Validators.min(1), Validators.max(5)]),
     wideImages: new FormControl<'shrink'|'crop'>('crop'),
     images: new FormArray([
       new FormGroup({
@@ -28,21 +29,24 @@ export class AppComponent {
 
   constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
+  fontScale(): number {
+    const value = this.form.controls.fontSize.value ?? 3;
+    return 3/16 * value ** 2 - 1/2 * value + 13/16;
+  }
+
   get gridStyle() {
     let fontMultiplier;
     switch (this.form.value.imagesPerRow) {
       case 1: fontMultiplier = 1; break;
       case 2: fontMultiplier = 0.54; break;
-      case 3: fontMultiplier = 0.43; break;
-      case 4: fontMultiplier = 0.30; break;
-      default: fontMultiplier = 0.21;
+      default: fontMultiplier = 0.43;
     }
     return `
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: stretch;
-      font-size: min(${140 * fontMultiplier}%, ${3.73 * fontMultiplier}vw);
+      font-size: calc(150% * ${fontMultiplier} * ${this.fontScale()});
       line-height: 100%;
       text-shadow:
         0px 0px 2px black,
@@ -76,6 +80,10 @@ export class AppComponent {
 
   get validImages(): Array<Image> {
     return this.form.value.images!.filter(image => image.url);
+  }
+
+  formatFontSize(self: AppComponent): () => string {
+    return () => self.fontScale().toPrecision(2) + "x";
   }
 
   captionText(image: Image): string | undefined {

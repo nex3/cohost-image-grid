@@ -7,6 +7,17 @@
 
     <mat-slide-toggle [formControl]="form.controls.attribution">Include link to this generator</mat-slide-toggle>
 
+    <div class="font-select mat-form-field-can-float mat-form-field-should-float">
+      <span class="mat-form-field-label-wrapper">
+        <label class="mat-form-field-label">Font size</label>
+      </span>
+      <mat-slider min="1" max="5" step="0.1" value="3" showTickMarks discrete
+          [displayWith]="formatFontSize(this)"
+          [formControl]="form.controls.fontSize">
+        <input matSliderThumb>
+      </mat-slider>
+    </div>
+
     <mat-radio-group [formControl]="form.controls.wideImages">
       <label>Wide images:</label>
       <mat-radio-button value="crop">Crop to fit</mat-radio-button>
@@ -68,7 +79,7 @@
         <a *ngFor="let image of validImages" href="{{image.url}}" [style]="linkStyle">
           <img src="{{image.url}}" alt="{{image.altText}}" [style]="imageStyle">
           <span *ngIf="image.caption" [innerHTML]="captionText(image)"
-            style="color: white; position: absolute; bottom: 10%; left: 12%; right: 12%; display: block; text-align: center">
+            style="color: white; position: absolute; bottom: 6%; left: 2%; right: 2%; display: block; text-align: center">
           </span>
         </a>
       </div>
