@@ -58,7 +58,7 @@ export class AppComponent {
     `;
   }
 
-  get linkStyle() {
+  get figureStyle() {
     return `
       width: calc(100% / ${this.form.value.imagesPerRow} - 4px);
       margin: 2px 2px;

@@ -75,12 +75,14 @@
   <div class="contentOuter">
     <div class="contentInner" #contentInner>
       <div [style]="gridStyle">
-        <a *ngFor="let image of validImages" href="{{image.url}}" [style]="linkStyle">
-          <img src="{{image.url}}" alt="{{image.altText}}" [style]="imageStyle">
-          <span *ngIf="image.caption" [innerHTML]="captionText(image)"
-            style="color: white; position: absolute; bottom: 6%; left: 2%; right: 2%; display: block; text-align: center">
-          </span>
-        </a>
+        <figure *ngFor="let image of validImages"[style]="figureStyle">
+          <a href="{{image.url}}">
+            <img src="{{image.url}}" alt="{{image.altText}}" [style]="imageStyle">
+          </a>
+          <figcaption *ngIf="image.caption" [innerHTML]="captionText(image)"
+            style="color: white; position: absolute; bottom: 6%; left: 2%; right: 2%; display: block; text-align: center; pointer-events: none">
+          </figcaption>
+        </figure>
       </div>
 
       <div *ngIf="form.value.attribution"
