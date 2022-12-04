@@ -46,7 +46,7 @@ export class AppComponent {
       flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: stretch;
-      font-size: calc(150% * ${fontMultiplier});
+      font-size: calc(min(4.6vw, 170%) * ${fontMultiplier});
       line-height: 100%;
       text-shadow:
         0px 0px 2px black,
