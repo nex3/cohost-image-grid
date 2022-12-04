@@ -11,10 +11,9 @@
       <span class="mat-form-field-label-wrapper">
         <label class="mat-form-field-label">Font size</label>
       </span>
-      <mat-slider min="1" max="5" step="0.1" value="3" showTickMarks discrete
-          [displayWith]="formatFontSize(this)"
-          [formControl]="form.controls.fontSize">
-        <input matSliderThumb>
+      <mat-slider min="1" max="5" step="0.1" value="3" discrete
+          [displayWith]="formatFontSize(this)">
+        <input matSliderThumb formControlName="fontSize">
       </mat-slider>
     </div>
 

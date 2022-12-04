@@ -29,8 +29,7 @@ export class AppComponent {
 
   constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
 
-  fontScale(): number {
-    const value = this.form.controls.fontSize.value ?? 3;
+  private fontScale(value: number): number {
     return 3/16 * value ** 2 - 1/2 * value + 13/16;
   }
 
@@ -41,12 +40,13 @@ export class AppComponent {
       case 2: fontMultiplier = 0.54; break;
       default: fontMultiplier = 0.43;
     }
+    fontMultiplier *= this.fontScale(this.form.value.fontSize ?? 3);
     return `
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: stretch;
-      font-size: calc(150% * ${fontMultiplier} * ${this.fontScale()});
+      font-size: calc(150% * ${fontMultiplier});
       line-height: 100%;
       text-shadow:
         0px 0px 2px black,
@@ -82,8 +82,8 @@ export class AppComponent {
     return this.form.value.images!.filter(image => image.url);
   }
 
-  formatFontSize(self: AppComponent): () => string {
-    return () => self.fontScale().toPrecision(2) + "x";
+  formatFontSize(self: AppComponent): (value: number) => string {
+    return (value) => self.fontScale(value).toPrecision(2) + "x";
   }
 
   captionText(image: Image): string | undefined {
