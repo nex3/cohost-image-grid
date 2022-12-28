@@ -24,27 +24,31 @@
     </mat-radio-group>
   </div>
 
-  <mat-card class="image-input" *ngFor="let group of form.controls.images.controls; index as i">
-    <mat-form-field appearance="fill" class="urlInput">
-      <mat-label>URL</mat-label>
-      <input matInput [formControl]="group.controls.url">
-    </mat-form-field>
+  <div cdkDropList (cdkDropListDropped)="drop($event)">
+    <mat-card cdkDrag class="image-input" *ngFor="let group of form.controls.images.controls; index as i">
+      <div cdkDragHandle class="handle"></div>
 
-    <mat-form-field appearance="fill" class="captionInput">
-      <mat-label>Caption</mat-label>
-      <textarea matInput [formControl]="group.controls.caption"></textarea>
-    </mat-form-field>
+      <mat-form-field appearance="fill" class="urlInput">
+        <mat-label>URL</mat-label>
+        <input matInput [formControl]="group.controls.url">
+      </mat-form-field>
 
-    <mat-form-field appearance="fill" class="altTextInput">
-      <mat-label>Alt Text</mat-label>
-      <textarea matInput [formControl]="group.controls.altText"></textarea>
-      <mat-hint>For screen readers</mat-hint>
-    </mat-form-field>
+      <mat-form-field appearance="fill" class="captionInput">
+        <mat-label>Caption</mat-label>
+        <textarea matInput [formControl]="group.controls.caption"></textarea>
+      </mat-form-field>
 
-    <mat-card-actions>
-      <button mat-raised-button color="warn" (click)="removeImage(i)">Remove</button>
-    </mat-card-actions>
-  </mat-card>
+      <mat-form-field appearance="fill" class="altTextInput">
+        <mat-label>Alt Text</mat-label>
+        <textarea matInput [formControl]="group.controls.altText"></textarea>
+        <mat-hint>For screen readers</mat-hint>
+      </mat-form-field>
+
+      <mat-card-actions>
+        <button mat-raised-button color="warn" (click)="removeImage(i)">Remove</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
   <div class="buttons">
     <button mat-raised-button color="primary" (click)="addImage()">Add Image</button>

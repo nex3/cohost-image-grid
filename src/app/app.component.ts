@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { HostListener } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 type Image = Partial<{ url: string | null, caption: string | null, altText: string | null }>;
 
@@ -107,8 +108,12 @@ export class AppComponent {
     this.form.controls.images.removeAt(i);
   }
 
+  drop(event: CdkDragDrop<FormGroup>): void {
+    moveItemInFormArray(this.form.controls.images, event.previousIndex, event.currentIndex);
+  }
+
   @HostListener('window:beforeunload', ['$event'])
-  confirmClose($event: BeforeUnloadEvent)   {
+  confirmClose($event: BeforeUnloadEvent): void {
     if (this.changedSinceCopy) $event.returnValue = confirm();
   }
 
@@ -126,4 +131,24 @@ export class AppComponent {
     await navigator.clipboard.writeText(html);
     this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
   }
+}
+
+/**
+ * Moves an item in a FormArray to another position.
+ * @param formArray FormArray instance in which to move the item.
+ * @param fromIndex Starting index of the item.
+ * @param toIndex Index to which he item should be moved.
+ */
+export function moveItemInFormArray(formArray: FormArray, fromIndex: number, toIndex: number): void {
+  const dir = toIndex > fromIndex ? 1 : -1;
+
+  const from = fromIndex;
+  const to = toIndex;
+
+  const temp = formArray.at(from);
+  for (let i = from; i * dir < to * dir; i = i + dir) {
+    const current = formArray.at(i + dir);
+    formArray.setControl(i, current);
+  }
+  formArray.setControl(to, temp);
 }
