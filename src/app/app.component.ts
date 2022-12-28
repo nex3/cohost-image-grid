@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { HostListener } from '@angular/core';
 
 type Image = Partial<{ url: string | null, caption: string | null, altText: string | null }>;
 
@@ -11,6 +12,8 @@ type Image = Partial<{ url: string | null, caption: string | null, altText: stri
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  private changedSinceCopy = false;
+
   form = this._formBuilder.group({
     imagesPerRow: new FormControl(2, Validators.min(1)),
     attribution: new FormControl(true),
@@ -27,7 +30,9 @@ export class AppComponent {
 
   @ViewChild('contentInner') private wrapper!: ElementRef<HTMLElement>;
 
-  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) { }
+  constructor(private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
+    this.form.valueChanges.subscribe(() => this.changedSinceCopy = true);
+  }
 
   private fontScale(value: number): number {
     return 3/16 * value ** 2 - 1/2 * value + 13/16;
@@ -102,7 +107,13 @@ export class AppComponent {
     this.form.controls.images.removeAt(i);
   }
 
+  @HostListener('window:beforeunload', ['$event'])
+  confirmClose($event: BeforeUnloadEvent)   {
+    if (this.changedSinceCopy) $event.returnValue = confirm();
+  }
+
   async copyHtml(): Promise<void> {
+    this.changedSinceCopy = true;
     const html = this.wrapper.nativeElement.innerHTML
       // Angular adds a bunch of comments that we don't need.
       .replace(/<!--(.|\n)*?-->/mg, '')
