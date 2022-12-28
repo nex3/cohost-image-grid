@@ -120,7 +120,9 @@ export class AppComponent {
       // Magic Angular attributes.
       .replace(/ _ng[a-z0-9-]+=""/g, '')
       // Angular-injected class.
-      .replace(/ class="ng-star-inserted"/g, '');
+      .replace(/ class="ng-star-inserted"/g, '')
+      // Cohost adds these automatically
+      .replace(/ target="_blank" rel="noreferrer noopener"/g, '');
     await navigator.clipboard.writeText(html);
     this._snackBar.open("HTML copied!", undefined, { duration: 1000 });
   }

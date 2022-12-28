@@ -76,7 +76,7 @@
     <div class="contentInner" #contentInner>
       <div [style]="gridStyle">
         <figure *ngFor="let image of validImages"[style]="figureStyle">
-          <a href="{{image.url}}">
+          <a href="{{image.url}}" target="_blank" rel="noreferrer noopener">
             <img src="{{image.url}}" alt="{{image.altText}}" [style]="imageStyle">
           </a>
           <figcaption *ngIf="image.caption" [innerHTML]="captionText(image)"
