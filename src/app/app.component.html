@@ -56,6 +56,12 @@
         <mat-hint>For screen readers</mat-hint>
       </mat-form-field>
 
+      <mat-form-field appearance="fill" class="urlInput">
+        <mat-label>Link</mat-label>
+        <input matInput [formControl]="group.controls.link">
+        <mat-hint>By default, opens the full-size image</mat-hint>
+      </mat-form-field>
+
       <mat-card-actions>
         <button mat-raised-button color="warn" (click)="removeImage(i)">Remove</button>
       </mat-card-actions>
@@ -92,7 +98,7 @@
     <div class="contentInner" #contentInner>
       <div [style]="gridStyle">
         <figure *ngFor="let image of validImages"[style]="figureStyle">
-          <a href="{{image.url}}" target="_blank" rel="noreferrer noopener">
+          <a href="{{link(image)}}" target="_blank" rel="noreferrer noopener">
             <img src="{{image.url}}" alt="{{image.altText}}" [style]="imageStyle">
           </a>
           <figcaption *ngIf="image.caption" [innerHTML]="captionText(image)"

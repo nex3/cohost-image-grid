@@ -38,7 +38,7 @@
     .handle {
         position: absolute;
         top: 1rem;
-        height: 9rem;
+        height: calc(100% - 5rem);
         left: 5px;
         width: 3px;
         border: 1px solid rgb(0 0 0 / 0.3);

@@ -4,7 +4,7 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { HostListener } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-type Image = Partial<{ url: string | null, caption: string | null, altText: string | null }>;
+type Image = Partial<{ url: string | null, link: string | null, caption: string | null, altText: string | null }>;
 
 /** @title Form field appearance variants */
 @Component({
@@ -23,6 +23,7 @@ export class AppComponent {
     images: new FormArray([
       new FormGroup({
         url: new FormControl(""),
+        link: new FormControl(""),
         caption: new FormControl(""),
         altText: new FormControl(""),
       }),
@@ -96,9 +97,14 @@ export class AppComponent {
     return image?.caption?.replace('\n', '<br>');
   }
 
+  link(image: Image): string {
+    return (image.link == "" ? image.url : image.link) ?? "";
+  }
+
   addImage(): void {
     this.form.controls.images.push(new FormGroup({
       url: new FormControl(""),
+      link: new FormControl(""),
       caption: new FormControl(""),
       altText: new FormControl(""),
     }));
