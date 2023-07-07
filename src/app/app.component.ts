@@ -42,23 +42,13 @@ export class AppComponent {
   }
 
   get gridStyle() {
-    let fontMultiplier;
-    switch (this.form.value.imagesPerRow) {
-      case 1: fontMultiplier = 1; break;
-      case 2: fontMultiplier = 0.54; break;
-      default: fontMultiplier = 0.43;
-    }
-    fontMultiplier *= this.fontScale(this.form.value.fontSize ?? 3);
     return `
       display: flex;
       flex-wrap: wrap;
       justify-content: space-evenly;
       align-items: stretch;
-      font-size: calc(min(4.6vw, 170%) * ${fontMultiplier});
-      line-height: 100%;
       text-align: center;
     ` + (this.form.value.captions === 'overlay' ? `
-      color: white;
       text-shadow:
         0px 0px 2px black,
         0px 0px 2px black,
@@ -91,14 +81,29 @@ export class AppComponent {
   }
 
   get captionStyle() {
-    return this.form.value.captions === 'overlay' ? `
+    // Have to declare some of these locally to override Cohost's default
+    // styles.
+    let fontMultiplier;
+    switch (this.form.value.imagesPerRow) {
+      case 1: fontMultiplier = 1; break;
+      case 2: fontMultiplier = 0.54; break;
+      default: fontMultiplier = 0.43;
+    }
+    fontMultiplier *= this.fontScale(this.form.value.fontSize ?? 3);
+    return `
+      font-size: calc(min(4.6vw, 170%) * ${fontMultiplier});
+      line-height: 100%;
+    ` + (this.form.value.captions === 'overlay' ? `
+      color: white;
       position: absolute;
       bottom: 6%;
       left: 2%;
       right: 2%;
       display: block;
       pointer-events: none;
-    ` : '';
+    ` : `
+      margin-top: 0.2rem;
+    `);
   }
 
   get validImages(): Array<Image> {
