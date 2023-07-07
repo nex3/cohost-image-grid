@@ -20,6 +20,7 @@ export class AppComponent {
     attribution: new FormControl(true),
     fontSize: new FormControl(3, [Validators.min(1), Validators.max(5)]),
     wideImages: new FormControl<'shrink'|'crop'>('crop'),
+    captions: new FormControl<'overlay'|'under'>('under'),
     images: new FormArray([
       new FormGroup({
         url: new FormControl(""),
@@ -55,6 +56,9 @@ export class AppComponent {
       align-items: stretch;
       font-size: calc(min(4.6vw, 170%) * ${fontMultiplier});
       line-height: 100%;
+      text-align: center;
+    ` + (this.form.value.captions === 'overlay' ? `
+      color: white;
       text-shadow:
         0px 0px 2px black,
         0px 0px 2px black,
@@ -62,14 +66,15 @@ export class AppComponent {
         0px 0px 2px black,
         0px 0px 2px black,
         0px 0px 2px black;
-    `;
+    ` : '');
   }
 
   get figureStyle() {
     return `
       width: calc(100% / ${this.form.value.imagesPerRow} - 4px);
       margin: 2px 2px;
-      display: block;
+      display: flex;
+      flex-flow: column;
       text-decoration: none;
       position: relative;
       object-fit: 
@@ -83,6 +88,17 @@ export class AppComponent {
       margin: 0;
       object-fit: ${this.form.value.wideImages === 'crop' ? 'cover' : 'contain'};
     `;
+  }
+
+  get captionStyle() {
+    return this.form.value.captions === 'overlay' ? `
+      position: absolute;
+      bottom: 6%;
+      left: 2%;
+      right: 2%;
+      display: block;
+      pointer-events: none;
+    ` : '';
   }
 
   get validImages(): Array<Image> {

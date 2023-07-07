@@ -34,6 +34,12 @@
       <mat-radio-button value="crop">Crop to fit</mat-radio-button>
       <mat-radio-button value="shrink">Shrink to fit</mat-radio-button>
     </mat-radio-group>
+
+    <mat-radio-group [formControl]="form.controls.captions">
+      <label>Captions:</label>
+      <mat-radio-button value="under">Under image</mat-radio-button>
+      <mat-radio-button value="overlay">On top of image</mat-radio-button>
+    </mat-radio-group>
   </div>
 
   <div cdkDropList (cdkDropListDropped)="drop($event)">
@@ -101,8 +107,7 @@
           <a href="{{link(image)}}" target="_blank" rel="noreferrer noopener">
             <img src="{{image.url}}" alt="{{image.altText}}" [style]="imageStyle">
           </a>
-          <figcaption *ngIf="image.caption" [innerHTML]="captionText(image)"
-            style="color: white; position: absolute; bottom: 6%; left: 2%; right: 2%; display: block; text-align: center; pointer-events: none">
+          <figcaption *ngIf="image.caption" [innerHTML]="captionText(image)" [style]="captionStyle">
           </figcaption>
         </figure>
       </div>
