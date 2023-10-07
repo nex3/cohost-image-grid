@@ -21,6 +21,7 @@ export class AppComponent {
     fontSize: new FormControl(3, [Validators.min(1), Validators.max(5)]),
     wideImages: new FormControl<'shrink'|'crop'>('crop'),
     captions: new FormControl<'overlay'|'under'>('under'),
+    pixelate: new FormControl<boolean>(false),
     images: new FormArray([
       new FormGroup({
         url: new FormControl(""),
@@ -73,6 +74,7 @@ export class AppComponent {
 
   get imageStyle() {
     return `
+      ${this.form.value.pixelate ? 'image-rendering: pixelated;' : ''}
       width: 100%;
       height: 100%;
       margin: 0;
